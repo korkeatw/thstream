@@ -2,7 +2,19 @@
 //  OpenShift sample Node application
 var express = require('express');
 var fs      = require('fs');
+// additional modules
+var http    = require('http');
+var io      = require('socket.io');
+var twit    = require('twit');
 
+var tw = new twit({
+      consumer_key : 'A7u5zIZlXQHOG9pCCA9eiQ'
+    , consumer_secret : 'K0Bk9bqe6Y2jXE4UFXaFQnHF2qv5c4utixsXjItPI'
+    , access_token : '14424153-4idEAHdhlLaeSX6Uxwu0umrKojPgols5eCBhcSNhY'
+    , access_token_secret : '4R8JQb5KeLI9zScoAWuHWsjMp0kJMRdDEhTu9diMMGs'
+})
+
+var stream = tw.stream('statuses/sample')
 
 /**
  *  Define the sample application.
@@ -113,7 +125,7 @@ var SampleApp = function() {
      */
     self.initializeServer = function() {
         self.createRoutes();
-        self.app = express.createServer();
+        self.app = express();
 
         //  Add handlers for the app (from the routes).
         for (var r in self.routes) {
@@ -132,6 +144,7 @@ var SampleApp = function() {
 
         // Create the express server and routes.
         self.initializeServer();
+        self.initSocketIO().addSocketIOEvents();
     };
 
 
@@ -145,6 +158,32 @@ var SampleApp = function() {
                         Date(Date.now() ), self.ipaddress, self.port);
         });
     };
+
+    /**
+     * Inital Socket.io 
+     */
+    self.initSocketIO = function() {
+        self.server = http.createServer(self.app);
+        self.sio = io.listen(self.server);
+        self.sio.enable('browser client etag');
+        self.sio.enable('browser client gzip');
+        self.sio.set('log level', 1);
+        self.sio.set('transports', [
+            'websocket',
+            'xhr-polling'
+        ]);
+        return this;
+    }
+
+    self.addSocketIOEvents = function() {
+        self.sio.sockets.on('connection', function(socket) {
+			stream.on('tweet', function(tweet) {
+    			if (tweet.lang == 'th') {
+        			socket.emit('tweet', tweet)
+    			}
+			})
+        })
+    }
 
 };   /*  Sample Application.  */
 
