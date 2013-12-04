@@ -3,11 +3,25 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Welcome to OpenShift</title>
+  <title>Twitter Thai Stream</title>
+  <style>
+	body {
+		font-family: Sans, Helvetica;
+		font-size: 100%;
+	}
+	ul#tweets {
+		list-style: none;
+	}
+	ul#tweets > li {
+		border: 1px solid #999;
+		background: #eee;
+		margin-bottom: 10px;
+		font-size: 110%;
+		padding: 10px;
+	}
+  </style>
   <script src="//code.jquery.com/jquery-1.9.1.js"></script>
-  <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
   <script src="/socket.io/socket.io.js"></script>
-  <style href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"></style>
   <script>
   	var MAX_LIST = 10;
   	var socket = io.connect('');
@@ -24,6 +38,7 @@
   </script>
 </head>
 <body>
+	<h1>Twitter Thai Stream</h1>
 	<ul id="tweets"></ul>
 </body>
 </html>

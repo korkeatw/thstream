@@ -169,7 +169,6 @@ var SampleApp = function() {
         self.sio.enable('browser client gzip');
         self.sio.set('log level', 1);
         self.sio.set('transports', [
-            'websocket',
             'xhr-polling'
         ]);
         return this;
