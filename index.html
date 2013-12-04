@@ -10,7 +10,7 @@
   <style href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"></style>
   <script>
   	var MAX_LIST = 10;
-  	var socket = io.connect('ws://thstream-khasathan.rhcloud.com:8080/');
+  	var socket = io.connect('');
   	socket.on('connect', function() {
   		socket.on('tweet', function(data) {
   			var tweets_list = $('#tweets');
