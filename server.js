@@ -179,8 +179,6 @@ var SampleApp = function() {
 
     self.addSocketIOEvents = function() {
         self.sio.sockets.on('connection', function(socket) {
-			stream.start()
-			
 			stream.on('connect', function() {
 				socket.emit('connected', 'Connected')
 			})
@@ -198,7 +196,6 @@ var SampleApp = function() {
 			})
 			
 			socket.on('disconnect', function() {
-				stream.stop()
 				socket.emit('disconnect', 'Disconnected')
 			})
         })
