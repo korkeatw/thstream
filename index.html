@@ -8,17 +8,30 @@
 	body {
 		font-family: Sans, Helvetica;
 		font-size: 100%;
+		background: #22241c;
+		color: #fff;
 	}
+	h1 { color: #00aad4; }
 	ul#tweets {
 		list-style: none;
 	}
 	ul#tweets > li {
 		border: 1px solid #999;
-		background: #eee;
+		background: #fff;
+		color: #333;
 		margin-bottom: 10px;
-		font-size: 110%;
-		padding: 10px;
+		padding: 5px;
+		border-radius: 5px;
 	}
+	.tw-img {
+		width: 30px;
+		height: 30px;
+		overflow: hidden;
+	}
+	.tw-img > img { border: 1px solid #333; float: left; margin-right: 10px;}
+	.tw-text { font-size: 110%; }
+	.tw-text > strong { float: left; margin-right: 10px; color: #ff0066; }
+	.clear { clear: both; }
   </style>
   <script src="//code.jquery.com/jquery-1.9.1.js"></script>
   <script src="/socket.io/socket.io.js"></script>
@@ -29,16 +42,16 @@
   		socket.on('tweet', function(data) {
   			var tweets_list = $('#tweets');
   			var child = tweets_list.children();
-  			if(child.length > MAX_LIST) {
+  			if(child.length == MAX_LIST) {
   				child.remove(':last-child');
   			}
-  			tweets_list.prepend('<li>' + data.text + '</li>');
+  			tweets_list.prepend('<li><span class="tw-img"><img src="'+ data.user.profile_image_url +'"></span><span class="tw-text"><strong>'+ data.user.screen_name +'</strong>' + data.text + '</span><div class="clear"></div></li>');
   		});
   	});
   </script>
 </head>
 <body>
-	<h1>Twitter Thai Stream</h1>
+	<h1>twitter thai stream</h1>
 	<ul id="tweets"></ul>
 </body>
 </html>
