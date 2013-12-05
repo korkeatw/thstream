@@ -81,7 +81,8 @@
 				if(child.length == MAX_LIST) {
 					child.remove(':last-child');
 				}
-				tweets_list.prepend('<li><span class="tw-img"><img src="'+ data.user.profile_image_url +'"></span><span class="tw-text"><strong>'+ data.user.screen_name +'</strong>' + data.text + '</span><div class="clear"></div></li>');
+				$('<li><span class="tw-img"><img src="'+ data.user.profile_image_url +'"></span><span class="tw-text"><strong>'+ data.user.screen_name +'</strong>' + data.text + '</span><div class="clear"></div></li>')
+				.hide().prependTo(tweets_list).fadeIn('slow');
 			});
 			socket.on('connected', function(data) {
 				$('#noti-text').text(data);
