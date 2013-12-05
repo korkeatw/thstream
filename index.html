@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title>Twitter Thai Stream with Node.js &amp; Socket.io</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"/>
   <style>
 	body {
 		font-family: Sans, Helvetica;
@@ -15,7 +16,7 @@
 	a:hover { text-decoration: underline; color: #ffff00;}
 	ul#tweets { list-style: none; }
 	ul#tweets > li {
-		width: 90%;
+		width: 95%;
 		border: 1px solid #333;
 		background: #fff;
 		color: #333;
@@ -39,22 +40,6 @@
 	.left { float: left; } 
 	.clear { clear: both; }
   </style>
-  <script src="//code.jquery.com/jquery-1.9.1.js"></script>
-  <script src="/socket.io/socket.io.js"></script>
-  <script>
-  	var MAX_LIST = 10;
-  	var socket = io.connect('');
-  	socket.on('connect', function() {
-  		socket.on('tweet', function(data) {
-  			var tweets_list = $('#tweets');
-  			var child = tweets_list.children();
-  			if(child.length == MAX_LIST) {
-  				child.remove(':last-child');
-  			}
-  			tweets_list.prepend('<li><span class="tw-img"><img src="'+ data.user.profile_image_url +'"></span><span class="tw-text"><strong>'+ data.user.screen_name +'</strong>' + data.text + '</span><div class="clear"></div></li>');
-  		});
-  	});
-  </script>
 </head>
 <body>
 	<div class="brand left">
@@ -71,6 +56,44 @@
 	</div>
 	<div class="clear"></div>
 	<ul id="tweets"></ul>
-	<address>Powered by <a href="https://www.openshift.com/">OpenShift</a> &amp; <a href="http://nodejs.org">Node.js</a>+<a href="http://socket.io">Socket.io</a></address>
+	<address>
+		Powered by <a href="https://www.openshift.com/">OpenShift</a> 
+		&amp; <a href="http://nodejs.org">Node.js</a>
+		+<a href="http://socket.io">Socket.io</a>
+	</address>
+	<div id="noti-box" title="Notification" style="display: none;">
+		<p><center id="noti-text"></center></p>
+	</div>
+	<!-- javascript -->
+	<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+	<script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		var MAX_LIST = 10;
+		var socket = io.connect('');
+		var tweets_list = $('#tweets');
+		socket.on('connect', function() {
+			socket.on('tweet', function(data) {
+				var child = tweets_list.children();
+				if(child.length == MAX_LIST) {
+					child.remove(':last-child');
+				}
+				tweets_list.prepend('<li><span class="tw-img"><img src="'+ data.user.profile_image_url +'"></span><span class="tw-text"><strong>'+ data.user.screen_name +'</strong>' + data.text + '</span><div class="clear"></div></li>');
+			});
+			socket.on('connected', function(data) {
+				$('#noti-text').text(data);
+				$('#noti-box').dialog().delay(2500).fadeOut(function(){ 
+					$(this).dialog("close") 
+				});
+			});
+			socket.on('disconnect', function(data) {
+				socket.disconnect();
+				$('#noti-text').text(data);
+				$('#noti-box').dialog().delay(2500).fadeIn(function(){ 
+					$(this).dialog("open") 
+				});
+			});
+		});
+	</script>
 </body>
 </html>

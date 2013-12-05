@@ -75,6 +75,9 @@ var SampleApp = function() {
         if (typeof sig === "string") {
            console.log('%s: Received %s - terminating sample app ...',
                        Date(Date.now()), sig);
+           // disconnect stream
+           console.log('Stop Twitter Stream')
+		   stream.stop()
            process.exit(1);
         }
         console.log('%s: Node server stopped.', Date(Date.now()) );
@@ -176,10 +179,26 @@ var SampleApp = function() {
 
     self.addSocketIOEvents = function() {
         self.sio.sockets.on('connection', function(socket) {
+			stream.start()
+			
+			stream.on('connect', function() {
+				socket.emit('connected', 'Connected')
+			})
+			
+			stream.on('disconnect', function() {
+				stream.stop()
+				socket.emit('disconnect', 'Disconnected')
+			})
+			
 			stream.on('tweet', function(tweet) {
     			if (tweet.lang == 'th') {
         			socket.emit('tweet', tweet)
     			}
+			})
+			
+			socket.on('disconnect', function() {
+				stream.stop()
+				socket.emit('disconnect', 'Disconnected')
 			})
         })
     }
