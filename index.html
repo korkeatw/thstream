@@ -70,7 +70,10 @@
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
 		var MAX_LIST = 10;
-		var socket = io.connect('');
+		var socket = io.connect('', {
+			'reconnect': true, 
+			'reconnection delay': 1000
+		});
 		var tweets_list = $('#tweets');
 		socket.on('connect', function() {
 			socket.on('tweet', function(data) {
@@ -87,7 +90,6 @@
 				});
 			});
 			socket.on('disconnect', function(data) {
-				socket.disconnect();
 				$('#noti-text').text(data);
 				$('#noti-box').dialog().delay(2500).fadeIn(function(){ 
 					$(this).dialog("open") 
