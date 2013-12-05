@@ -186,11 +186,12 @@ var SampleApp = function() {
 			})
 			
 			stream.on('disconnect', function() {
-				stream.stop()
 				socket.emit('disconnect', 'Disconnected')
 			})
 			
 			stream.on('tweet', function(tweet) {
+				if(tweet.lang == undefined)
+					return;
     			if (tweet.lang == 'th') {
         			socket.emit('tweet', tweet)
     			}
