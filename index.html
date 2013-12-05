@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Twitter Thai Stream</title>
+  <title>Twitter Thai Stream with Node.js &amp; Socket.io</title>
   <style>
 	body {
 		font-family: Sans, Helvetica;
@@ -11,16 +11,16 @@
 		background: #22241c;
 		color: #fff;
 	}
-	h1 { color: #00aad4; }
-	ul#tweets {
-		list-style: none;
-	}
+	a { text-decoration: none; color: #fce94f;}
+	a:hover { text-decoration: underline; color: #ffff00;}
+	ul#tweets { list-style: none; }
 	ul#tweets > li {
-		border: 1px solid #999;
+		width: 90%;
+		border: 1px solid #333;
 		background: #fff;
 		color: #333;
 		margin-bottom: 10px;
-		padding: 5px;
+		padding: 10px;
 		border-radius: 5px;
 	}
 	.tw-img {
@@ -30,7 +30,13 @@
 	}
 	.tw-img > img { border: 1px solid #333; float: left; margin-right: 10px;}
 	.tw-text { font-size: 110%; }
-	.tw-text > strong { float: left; margin-right: 10px; color: #ff0066; }
+	.tw-text > strong { margin-right: 10px; color: #ff0066; }
+	.brand a { text-decoration: none; }
+	.credit { color: #ddd;}
+	.red { color: #d40000; }
+	.white { color: #fff; }
+	.blue { color: #0169c9; }
+	.left { float: left; } 
 	.clear { clear: both; }
   </style>
   <script src="//code.jquery.com/jquery-1.9.1.js"></script>
@@ -51,7 +57,20 @@
   </script>
 </head>
 <body>
-	<h1>twitter thai stream</h1>
+	<div class="brand left">
+		<h1 class="left">
+			<a href="/">
+				<span class="red">Twi</span><span class="white">tter</span> 
+				<span class="blue">Thai</span> 
+				<span class="white">Stre</span><span class="red">am</span>
+			</a>
+		</h1>
+		<h5 class="credit left">
+			created by <a href="http://khasathan.in.th">khasathan</a>
+		</h5>
+	</div>
+	<div class="clear"></div>
 	<ul id="tweets"></ul>
+	<address>Powered by <a href="https://www.openshift.com/">OpenShift</a> &amp; <a href="http://nodejs.org">Node.js</a>+<a href="http://socket.io">Socket.io</a></address>
 </body>
 </html>
