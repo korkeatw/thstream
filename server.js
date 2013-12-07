@@ -168,6 +168,8 @@ var SampleApp = function() {
     self.initSocketIO = function() {
         self.server = http.createServer(self.app);
         self.sio = io.listen(self.server);
+        self.sio.enable('browser client cache');
+        self.sio.enable('browser client minification');
         self.sio.enable('browser client etag');
         self.sio.enable('browser client gzip');
         self.sio.set('log level', 1);
