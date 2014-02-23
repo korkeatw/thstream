@@ -3,15 +3,15 @@
 var express = require('express');
 var fs      = require('fs');
 // additional modules
-var http	= require('http')
+var http	= require('http');
 var io      = require('socket.io');
 var twit    = require('twit');
 
 var tw = new twit({
-      consumer_key : 'A7u5zIZlXQHOG9pCCA9eiQ'
-    , consumer_secret : 'K0Bk9bqe6Y2jXE4UFXaFQnHF2qv5c4utixsXjItPI'
-    , access_token : '14424153-4idEAHdhlLaeSX6Uxwu0umrKojPgols5eCBhcSNhY'
-    , access_token_secret : '4R8JQb5KeLI9zScoAWuHWsjMp0kJMRdDEhTu9diMMGs'
+      consumer_key : 'xxxxx' 
+    , consumer_secret : 'xxxxx'
+    , access_token : 'xxxxx'
+    , access_token_secret : 'xxxxx'
 })
 
 var stream = tw.stream('statuses/sample')
@@ -186,7 +186,7 @@ var SampleApp = function() {
 			})
 			
 			stream.on('disconnect', function() {
-				socket.emit('disconnect', 'Disconnected')
+				socket.emit('disconnect', 'Disconnect')
 			})
 			
 			stream.on('tweet', function(tweet) {
@@ -198,7 +198,7 @@ var SampleApp = function() {
 			})
 			
 			socket.on('disconnect', function() {
-				socket.emit('disconnect', 'Disconnected')
+				socket.emit('disconnect', 'Disconnect')
 			})
         })
     }

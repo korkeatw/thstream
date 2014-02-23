@@ -1,24 +1,15 @@
 {
-  "name": "OpenShift-Sample-App",
+  "name": "Twitter Thai Stream",
   "version": "1.0.0",
-  "description": "OpenShift Sample Application",
-  "keywords": [
-    "OpenShift",
-    "Node.js",
-    "application",
-    "openshift"
-  ],
+  "description": "Sample messages in Thai language ",
+  
   "author": {
-    "name": "OpenShift",
-    "email": "ramr@example.org",
-    "url": "http://www.openshift.com/"
+    "name": "KHASATHAN",
+    "email": "khasathan@gmail.com",
+    "url": "http://www.khasathan.in.th/"
   },
-  "homepage": "http://www.openshift.com/",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/openshift/origin-server"
-  },
-
+  
+  "homepage": "http://khasathan.in.th/",
   "engines": {
     "node": ">= 0.6.0",
     "npm": ">= 1.0.0"
@@ -29,6 +20,7 @@
     "socket.io": "*",
     "twit": "*"
   },
+  
   "devDependencies": {},
   "bundleDependencies": [],
 
