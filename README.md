@@ -48,4 +48,4 @@ I deployed this application on [OpenShift](http://openshift.com) link of the app
 
 
 ##License
-MIT © [Sindre Sorhus](http://sindresorhus.com/)
+MIT
